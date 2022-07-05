@@ -1,8 +1,6 @@
 # Edit this config.py file as you like
 
-# This is hastag which Twitter bot will
-# search and retweet You can edit this with
-# any hastag .For example : '# javascript'
+# This is the @ of the target, for example: instead of Lebron James, you need KingJames
 
 QUERY = 'KingJames'
 
@@ -13,7 +11,7 @@ LIKE = True
 FOLLOW = True
 
 # Twitter bot sleep time settings in seconds.
-# For example SLEEP_TIME = 300 means 5 minutes.
+# For example SLEEP_TIME = 600 means 10 minutes.
 # Please, use large delay if you are running bot
 # all the time so that your account does not
 # get banned.

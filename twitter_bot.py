@@ -12,6 +12,7 @@ from config import QUERY, FOLLOW, LIKE, SLEEP_TIME
 from PIL import Image
 import requests
 from io import BytesIO
+#mirror text
 def mirror_text(text):
     str1 = ''
     str2 = ''
@@ -25,10 +26,12 @@ def mirror_text(text):
     str2 = str2 + str1[::-1]
     return str2
 
+#set up api
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
+#changing the user's profile picture
 tweets = api.user_timeline(screen_name = QUERY, count = 1, include_rts = False, 
                             tweet_mode = 'extended')
 response = requests.get(tweets[0].user.profile_image_url)
@@ -39,15 +42,22 @@ flipped_img.save(tf, format="png")
 api.update_profile_image(tf.name)
 tf.close()
 os.unlink(tf.name)
+#changing the user's name and description
 name = tweets[0].user.name
 desc = tweets[0].user.description
 api.update_profile(name = mirror_text(name), description = mirror_text(desc))
+#infinite loop to detect new tweets
 while True:
+    
     tweets = api.user_timeline(screen_name = QUERY, count = 5, include_rts = False, 
                             tweet_mode = 'extended')
+
     for tweet in tweets:
+        #only reply under the tweet we have not liked before
+        #the tweet must also be an original tweet, not a reply under someone else's tweet.
         if tweet.in_reply_to_status_id is None and not tweet.favorited:
             tweet.favorite()
+            #code to get the photos backwards
             if 'media' in tweet.entities:
                 media_ids = []
                 media_details = tweet.extended_entities['media']
@@ -71,6 +81,7 @@ while True:
                 print(str)
                 api.update_status(status=str, in_reply_to_status_id=tweet.id, 
                                    auto_populate_reply_metadata=True, media_ids=media_ids)
+            #if there are no picture, simply mirror the text and we are done!
             else:
                 print(tweet.full_text)
                 print('\n')
