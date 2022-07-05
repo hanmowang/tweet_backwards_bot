@@ -1,5 +1,4 @@
-# This is just a sample file. You need to
-# edit this file. You need to get these
+# You need to edit this file. You need to get these
 # details from your Twitter app settings.
   
 consumer_key = ''
