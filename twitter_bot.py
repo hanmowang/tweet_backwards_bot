@@ -47,6 +47,15 @@ os.unlink(tf.name)
 name = tweets[0].user.name
 desc = tweets[0].user.description
 api.update_profile(name = mirror_text(name), description = mirror_text(desc))
+#changing the user's banner
+response = requests.get(tweets[0].user.profile_banner_url)
+img = Image.open(BytesIO(response.content))
+flipped_img = img.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+tf = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
+flipped_img.save(tf, format="png")
+api.update_profile_banner(tf.name)
+tf.close()
+os.unlink(tf.name)
 #infinite loop to detect new tweets
 while True:
     
@@ -91,4 +100,5 @@ while True:
                 print(str)
                 api.update_status(status=str, in_reply_to_status_id=tweet.id, 
                                    auto_populate_reply_metadata=True,)
+    print("sleep")
     sleep(SLEEP_TIME)

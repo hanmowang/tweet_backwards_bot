@@ -1,8 +1,8 @@
 # Edit this config.py file as you like
 
-# This is the @ of the target, for example: instead of Lebron James, you need KingJames
+# This is the twitter handle (@) of the target, for example: instead of Lebron James, you need KingJames
 
-QUERY = 'KingJames'
+QUERY = 'replace this line with twitter handle'
 
 # Twitter bot setting for liking Tweets
 LIKE = True
