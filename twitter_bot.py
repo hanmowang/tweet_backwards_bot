@@ -47,7 +47,7 @@ os.unlink(tf.name)
 name = tweets[0].user.name
 desc = tweets[0].user.description
 api.update_profile(name = mirror_text(name), description = mirror_text(desc))
-#changing the user's banner
+#changing the user's profile banner
 response = requests.get(tweets[0].user.profile_banner_url)
 img = Image.open(BytesIO(response.content))
 flipped_img = img.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
@@ -56,18 +56,18 @@ flipped_img.save(tf, format="png")
 api.update_profile_banner(tf.name)
 tf.close()
 os.unlink(tf.name)
+
 #infinite loop to detect new tweets
 while True:
-    
-    tweets = api.user_timeline(screen_name = QUERY, count = 5, include_rts = False, 
+    #getting the 20 most recent tweets and replies
+    tweets = api.user_timeline(screen_name = QUERY, count = 20, include_rts = False, 
                             tweet_mode = 'extended')
-
     for tweet in tweets:
         #only reply under the tweet we have not liked before
         #the tweet must also be an original tweet, not a reply under someone else's tweet.
         if tweet.in_reply_to_status_id is None and not tweet.favorited:
             tweet.favorite()
-            #code to get the photos backwards
+            #when there are photos in the tweet, we also make the photo backwards
             if 'media' in tweet.entities:
                 media_ids = []
                 media_details = tweet.extended_entities['media']
@@ -100,5 +100,6 @@ while True:
                 print(str)
                 api.update_status(status=str, in_reply_to_status_id=tweet.id, 
                                    auto_populate_reply_metadata=True,)
+    #10 minutes sleep time
     print("sleep")
     sleep(SLEEP_TIME)

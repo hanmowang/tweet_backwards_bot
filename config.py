@@ -2,7 +2,7 @@
 
 # This is the twitter handle (@) of the target, for example: instead of Lebron James, you need KingJames
 
-QUERY = 'replace this line with twitter handle'
+QUERY = 'enter handle here'
 
 # Twitter bot setting for liking Tweets
 LIKE = True
