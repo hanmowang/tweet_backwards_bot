@@ -6,7 +6,7 @@ Steps to use this bot
 also make sure you gave the bot <b>read and write</b> permissions
 ![image](https://user-images.githubusercontent.com/89413517/177448098-2d2304ca-bfd9-44f9-8b43-28afb3a48b98.png)
 3. Run the twitter_bot file
-4. Your twitter account will look like theirs but completely backwards! 
+4. Your twitter account will look like the target's but completely backwards! 
 This bot will also automatically reply under the target's most recent original tweet with the content
 backwards, even including the pictures!
 
