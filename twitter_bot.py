@@ -1,10 +1,7 @@
 import io
 import os
-from re import U
 import tempfile
-from tkinter import N
 from unicodedata import name
-from numpy import flip
 import tweepy
 from time import sleep
 from credentials import *
