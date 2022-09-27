@@ -84,7 +84,6 @@ while True:
                 print(tweet.full_text)
                 print('\n')
                 str = mirror_text(tweet.full_text)
-                str = str + '\n--This is a bot'
                 print(str)
                 api.update_status(status=str, in_reply_to_status_id=tweet.id, 
                                    auto_populate_reply_metadata=True, media_ids=media_ids)
